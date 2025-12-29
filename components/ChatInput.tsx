@@ -88,6 +88,7 @@ export default function ChatInput({ onSend, isLoading, initialValue = '' }: Chat
           ) : (
             '➤'
           )}
+        </button>
       </div>
       <div className={`char-count ${isOverLimit ? 'error' : isNearLimit ? 'warning' : ''}`}>
         {charCount > 0 && `${charCount}/${MAX_MESSAGE_LENGTH}`}
