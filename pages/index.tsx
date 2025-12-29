@@ -25,10 +25,6 @@ export default function Home() {
               <p>AI-Powered Customer Support</p>
             </div>
           </div>
-          <div className="status-indicator">
-            <span className="status-dot"></span>
-            <span>Online</span>
-          </div>
         </header>
         
         <ChatWidget />
