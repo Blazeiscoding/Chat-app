@@ -1,4 +1,3 @@
-// TypeScript interfaces for the AI Chat Agent
 
 export interface Message {
   id: string
@@ -14,7 +13,7 @@ export interface Conversation {
   messages: Message[]
 }
 
-// API Request/Response types
+
 export interface ChatRequest {
   message: string
   sessionId?: string
@@ -32,7 +31,7 @@ export interface HistoryResponse {
   error?: string
 }
 
-// LLM types
+
 export interface LLMMessage {
   role: 'system' | 'user' | 'assistant'
   content: string

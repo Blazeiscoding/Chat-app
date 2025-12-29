@@ -1,4 +1,4 @@
-// Message List Component
+
 import React, { useEffect, useRef } from 'react'
 import type { Message } from '@/src/types'
 import MessageBubble from './MessageBubble'
@@ -23,14 +23,14 @@ export default function MessageList({
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // Auto-scroll to bottom when new messages arrive
+
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, isLoading])
 
-  // Empty state
+
   if (messages.length === 0 && !isLoading) {
     return (
       <div className="message-list">

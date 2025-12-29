@@ -1,4 +1,4 @@
-// Chat Input Component
+
 import React, { useState, useRef, useEffect, KeyboardEvent, ChangeEvent } from 'react'
 import { MAX_MESSAGE_LENGTH } from '@/src/lib/constants'
 
@@ -12,7 +12,7 @@ export default function ChatInput({ onSend, isLoading, initialValue = '' }: Chat
   const [message, setMessage] = useState(initialValue)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  // Update message when initialValue changes (for suggested questions)
+
   useEffect(() => {
     if (initialValue) {
       setMessage(initialValue)
@@ -23,7 +23,7 @@ export default function ChatInput({ onSend, isLoading, initialValue = '' }: Chat
     }
   }, [initialValue])
 
-  // Auto-resize textarea
+
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
@@ -38,7 +38,7 @@ export default function ChatInput({ onSend, isLoading, initialValue = '' }: Chat
     onSend(trimmed)
     setMessage('')
     
-    // Reset textarea height
+
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
     }
@@ -53,7 +53,7 @@ export default function ChatInput({ onSend, isLoading, initialValue = '' }: Chat
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
-    // Allow typing but warn/limit at max
+
     if (value.length <= MAX_MESSAGE_LENGTH + 100) {
       setMessage(value)
     }

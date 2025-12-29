@@ -1,4 +1,4 @@
-// Message Bubble Component with Markdown Support
+
 import React, { useMemo } from 'react'
 import type { Message } from '@/src/types'
 
@@ -6,11 +6,11 @@ interface MessageBubbleProps {
   message: Message
 }
 
-// Simple markdown parser for common patterns
+
 function parseMarkdown(text: string): React.ReactNode[] {
   const elements: React.ReactNode[] = []
   
-  // Split by lines first
+
   const lines = text.split('\n')
   let currentList: string[] = []
   let listType: 'ul' | 'ol' | null = null
@@ -31,7 +31,7 @@ function parseMarkdown(text: string): React.ReactNode[] {
   }
   
   lines.forEach((line, lineIndex) => {
-    // Check for unordered list
+
     const ulMatch = line.match(/^[-*]\s+(.+)$/)
     if (ulMatch) {
       if (listType !== 'ul') flushList()
@@ -40,7 +40,7 @@ function parseMarkdown(text: string): React.ReactNode[] {
       return
     }
     
-    // Check for ordered list
+
     const olMatch = line.match(/^\d+\.\s+(.+)$/)
     if (olMatch) {
       if (listType !== 'ol') flushList()
@@ -49,10 +49,10 @@ function parseMarkdown(text: string): React.ReactNode[] {
       return
     }
     
-    // If we were in a list, flush it
+
     flushList()
     
-    // Check for headings
+
     const h3Match = line.match(/^###\s+(.+)$/)
     if (h3Match) {
       elements.push(<h4 key={`h3-${lineIndex}`} className="md-h3">{parseInline(h3Match[1])}</h4>)
@@ -71,13 +71,13 @@ function parseMarkdown(text: string): React.ReactNode[] {
       return
     }
     
-    // Empty line
+
     if (line.trim() === '') {
       elements.push(<br key={`br-${lineIndex}`} />)
       return
     }
     
-    // Regular paragraph
+
     elements.push(
       <p key={`p-${lineIndex}`} className="md-p">
         {parseInline(line)}
@@ -85,26 +85,22 @@ function parseMarkdown(text: string): React.ReactNode[] {
     )
   })
   
-  // Flush any remaining list
+
   flushList()
   
   return elements
 }
 
-// Parse inline markdown (bold, italic, code, links)
+
 function parseInline(text: string): React.ReactNode[] {
   const elements: React.ReactNode[] = []
   let remaining = text
   let keyIndex = 0
   
   const patterns = [
-    // Code (must come before bold/italic to avoid conflicts)
     { regex: /`([^`]+)`/, render: (match: string) => <code key={keyIndex++} className="md-code">{match}</code> },
-    // Bold
     { regex: /\*\*([^*]+)\*\*/, render: (match: string) => <strong key={keyIndex++} className="md-bold">{match}</strong> },
-    // Italic
     { regex: /\*([^*]+)\*/, render: (match: string) => <em key={keyIndex++} className="md-italic">{match}</em> },
-    // Links
     { regex: /\[([^\]]+)\]\(([^)]+)\)/, render: (_text: string, url: string) => (
       <a key={keyIndex++} href={url} target="_blank" rel="noopener noreferrer" className="md-link">{_text}</a>
     )},
@@ -125,23 +121,18 @@ function parseInline(text: string): React.ReactNode[] {
     }
     
     if (earliestMatch && matchedPattern) {
-      // Add text before the match
       if (earliestIndex > 0) {
         elements.push(remaining.substring(0, earliestIndex))
       }
       
-      // Add the matched element
       if (earliestMatch[2]) {
-        // Link pattern with URL
         elements.push(matchedPattern.render(earliestMatch[1], earliestMatch[2]))
       } else {
         elements.push(matchedPattern.render(earliestMatch[1], earliestMatch[1]))
       }
       
-      // Continue with the rest
       remaining = remaining.substring(earliestIndex + earliestMatch[0].length)
     } else {
-      // No more matches, add remaining text
       elements.push(remaining)
       break
     }
@@ -153,7 +144,7 @@ function parseInline(text: string): React.ReactNode[] {
 export default function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.sender === 'user'
   
-  // Format timestamp
+
   const formatTime = (date: Date | string) => {
     const d = new Date(date)
     return d.toLocaleTimeString('en-US', {
@@ -163,7 +154,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
     })
   }
 
-  // Parse markdown only for AI messages
+
   const content = useMemo(() => {
     if (isUser) {
       return message.text

@@ -1,4 +1,4 @@
-// Chat Widget Component - Main container for the chat interface
+
 import React, { useState, useEffect, useCallback } from 'react'
 import type { Message, ChatResponse, HistoryResponse } from '@/src/types'
 import MessageList from './MessageList'
@@ -14,7 +14,7 @@ export default function ChatWidget() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [suggestedQuestion, setSuggestedQuestion] = useState('')
 
-  // Load session from localStorage on mount
+
   useEffect(() => {
     const storedSessionId = localStorage.getItem(SESSION_STORAGE_KEY)
     if (storedSessionId) {
@@ -23,7 +23,7 @@ export default function ChatWidget() {
     }
   }, [])
 
-  // Fetch conversation history
+
   const fetchHistory = async (sid: string) => {
     try {
       const response = await fetch(`/api/chat/history?sessionId=${sid}`)
@@ -38,13 +38,13 @@ export default function ChatWidget() {
     }
   }
 
-  // Send message handler
+
   const handleSendMessage = useCallback(async (text: string) => {
     setError(null)
     setIsLoading(true)
     setSuggestedQuestion('')
 
-    // Create optimistic user message
+
     const userMessage: Message = {
       id: uuidv4(),
       sender: 'user',
@@ -52,7 +52,7 @@ export default function ChatWidget() {
       createdAt: new Date(),
     }
 
-    // Add user message immediately
+
     setMessages((prev) => [...prev, userMessage])
 
     try {
@@ -73,13 +73,13 @@ export default function ChatWidget() {
         throw new Error(data.error || 'Failed to send message')
       }
 
-      // Save session ID
+
       if (data.sessionId && data.sessionId !== sessionId) {
         setSessionId(data.sessionId)
         localStorage.setItem(SESSION_STORAGE_KEY, data.sessionId)
       }
 
-      // Add AI response
+
       const aiMessage: Message = {
         id: uuidv4(),
         sender: 'ai',
@@ -89,7 +89,7 @@ export default function ChatWidget() {
 
       setMessages((prev) => [...prev, aiMessage])
 
-      // Show error hint if there was an LLM issue but still got a response
+
       if (data.error) {
         console.warn('LLM warning:', data.error)
       }
@@ -98,19 +98,19 @@ export default function ChatWidget() {
       console.error('Send message error:', err)
       setError(err instanceof Error ? err.message : 'Failed to send message')
       
-      // Remove the optimistic user message on error
+
       setMessages((prev) => prev.filter((m) => m.id !== userMessage.id))
     } finally {
       setIsLoading(false)
     }
   }, [sessionId])
 
-  // Handle suggested question click
+
   const handleSuggestedQuestion = (question: string) => {
     setSuggestedQuestion(question)
   }
 
-  // Clear chat handler
+
   const handleClearChat = () => {
     setMessages([])
     setSessionId(null)

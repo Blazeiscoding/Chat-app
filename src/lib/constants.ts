@@ -1,5 +1,3 @@
-// Store Knowledge and FAQ Constants
-// This contains all the domain knowledge for the fictional e-commerce store
 
 export const STORE_NAME = "TechNest"
 
@@ -74,7 +72,7 @@ ${STORE_KNOWLEDGE}
 
 Remember: You represent ${STORE_NAME}. Be helpful, accurate, and make customers feel valued!`
 
-// Configuration constants
+
 export const MAX_MESSAGE_LENGTH = 2000
 export const MAX_HISTORY_MESSAGES = 10 // Number of past messages to include for context
 export const MAX_TOKENS = 500 // Max tokens for LLM response

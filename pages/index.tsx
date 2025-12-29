@@ -1,4 +1,4 @@
-// Main Chat Page
+
 import React from 'react'
 import Head from 'next/head'
 import ChatWidget from '@/components/ChatWidget'

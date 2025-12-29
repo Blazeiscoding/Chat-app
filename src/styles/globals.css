@@ -1,10 +1,7 @@
-/* AI Chat Agent - Premium Design System */
-/* Unique, modern design with depth and personality */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Premium color palette - Deep ocean theme */
   --bg-deep: #0B0F1A;
   --bg-surface: #111827;
   --bg-elevated: #1F2937;
@@ -15,30 +12,30 @@
   --text-secondary: #9CA3AF;
   --text-muted: #6B7280;
   
-  /* Accent - Vibrant cyan/teal */
+
   --accent: #06B6D4;
   --accent-light: #22D3EE;
   --accent-dark: #0891B2;
   --accent-glow: rgba(6, 182, 212, 0.4);
   
-  /* User messages - Warm gradient */
+
   --user-gradient: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
   --user-glow: rgba(245, 158, 11, 0.3);
   
-  /* AI messages */
+
   --ai-bg: rgba(17, 24, 39, 0.8);
   --ai-border: rgba(6, 182, 212, 0.2);
   
-  /* Status colors */
+
   --online: #10B981;
   --error: #EF4444;
   --warning: #F59E0B;
   
-  /* Borders */
+
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.1);
   
-  /* Spacing scale */
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -49,25 +46,25 @@
   --space-10: 2.5rem;
   --space-12: 3rem;
   
-  /* Typography */
+
   --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   
-  /* Radii */
+
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
   
-  /* Shadows */
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
   --shadow-glow: 0 0 40px var(--accent-glow);
 }
 
-/* Reset & Base */
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -90,7 +87,7 @@ body {
   overflow: hidden;
 }
 
-/* Animated background */
+
 body::before {
   content: '';
   position: fixed;
@@ -102,7 +99,7 @@ body::before {
   z-index: 0;
 }
 
-/* Noise texture overlay */
+
 body::after {
   content: '';
   position: fixed;
@@ -119,7 +116,7 @@ body::after {
   height: 100vh;
 }
 
-/* Main Container */
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -130,7 +127,7 @@ body::after {
   gap: var(--space-4);
 }
 
-/* Header - Minimal & Clean */
+
 .chat-header {
   display: flex;
   align-items: center;
@@ -199,7 +196,7 @@ body::after {
   50% { transform: scale(1.2); opacity: 0.7; }
 }
 
-/* Chat Widget Container */
+
 .chat-widget {
   flex: 1;
   display: flex;
@@ -212,7 +209,7 @@ body::after {
   min-height: 0;
 }
 
-/* Message List */
+
 .message-list {
   flex: 1;
   overflow-y: auto;
@@ -223,7 +220,7 @@ body::after {
   scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
+
 .message-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -241,7 +238,7 @@ body::after {
   background: var(--text-muted);
 }
 
-/* Empty State */
+
 .empty-state {
   flex: 1;
   display: flex;
@@ -286,7 +283,7 @@ body::after {
   line-height: 1.7;
 }
 
-/* Suggested Questions */
+
 .suggested-questions {
   display: flex;
   flex-wrap: wrap;
@@ -317,7 +314,7 @@ body::after {
   box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
 }
 
-/* Message Wrapper */
+
 .message-wrapper {
   display: flex;
   gap: var(--space-3);
@@ -345,7 +342,7 @@ body::after {
   align-self: flex-start;
 }
 
-/* Avatar */
+
 .message-avatar {
   width: 36px;
   height: 36px;
@@ -367,7 +364,7 @@ body::after {
   box-shadow: 0 2px 8px var(--accent-glow);
 }
 
-/* Message Content */
+
 .message-content {
   display: flex;
   flex-direction: column;
@@ -407,7 +404,7 @@ body::after {
   text-align: right;
 }
 
-/* Markdown Styling for AI Messages */
+
 .md-content {
   display: flex;
   flex-direction: column;
@@ -490,7 +487,7 @@ body::after {
   color: var(--accent);
 }
 
-/* Typing Indicator */
+
 .typing-indicator {
   display: flex;
   align-items: center;
@@ -537,7 +534,7 @@ body::after {
   font-weight: 500;
 }
 
-/* Chat Input Area */
+
 .chat-input-container {
   padding: var(--space-4);
   background: rgba(17, 24, 39, 0.6);
@@ -580,7 +577,7 @@ body::after {
   cursor: not-allowed;
 }
 
-/* Send Button */
+
 .send-button {
   width: 48px;
   height: 48px;
@@ -612,7 +609,7 @@ body::after {
   transform: none;
 }
 
-/* Character Count */
+
 .char-count {
   font-size: 0.688rem;
   font-family: var(--font-mono);
@@ -629,7 +626,7 @@ body::after {
   color: var(--error);
 }
 
-/* Error Message */
+
 .error-message {
   display: flex;
   align-items: center;
@@ -650,7 +647,7 @@ body::after {
   40%, 80% { transform: translateX(4px); }
 }
 
-/* Loading Spinner */
+
 .loading-spinner {
   width: 20px;
   height: 20px;
@@ -664,7 +661,7 @@ body::after {
   to { transform: rotate(360deg); }
 }
 
-/* Responsive Design */
+
 @media (max-width: 640px) {
   .container {
     padding: var(--space-3);

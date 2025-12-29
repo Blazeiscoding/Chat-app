@@ -1,5 +1,3 @@
-// GET /api/chat/history
-// Retrieves conversation history for a given session
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/src/lib/prisma'
@@ -9,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<HistoryResponse>
 ) {
-  // Only allow GET requests
+
   if (req.method !== 'GET') {
     return res.status(405).json({
       messages: [],
@@ -21,7 +19,7 @@ export default async function handler(
   try {
     const { sessionId } = req.query
 
-    // Validate sessionId
+
     if (!sessionId || typeof sessionId !== 'string') {
       return res.status(400).json({
         messages: [],
@@ -30,7 +28,7 @@ export default async function handler(
       })
     }
 
-    // Check if conversation exists
+
     const conversation = await prisma.conversation.findUnique({
       where: { id: sessionId },
     })
@@ -43,7 +41,7 @@ export default async function handler(
       })
     }
 
-    // Get all messages for this conversation
+
     const dbMessages = await prisma.message.findMany({
       where: { conversationId: sessionId },
       orderBy: { createdAt: 'asc' },
@@ -55,7 +53,7 @@ export default async function handler(
       },
     })
 
-    // Convert to Message type
+
     const messages: Message[] = dbMessages.map((msg) => ({
       id: msg.id,
       sender: msg.sender as 'user' | 'ai',

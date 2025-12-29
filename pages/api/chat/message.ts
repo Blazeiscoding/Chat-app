@@ -1,5 +1,3 @@
-// POST /api/chat/message
-// Handles sending a message and getting an AI response
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { v4 as uuidv4 } from 'uuid'
@@ -11,7 +9,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ChatResponse>
 ) {
-  // Only allow POST requests
+
   if (req.method !== 'POST') {
     return res.status(405).json({
       reply: '',
@@ -23,7 +21,7 @@ export default async function handler(
   try {
     const { message, sessionId } = req.body
 
-    // Validate the message
+
     const validation = validateMessage(message)
     if (!validation.valid) {
       return res.status(400).json({
@@ -36,9 +34,9 @@ export default async function handler(
     const trimmedMessage = message.trim()
     let conversationId = sessionId
 
-    // Create or get conversation
+
     if (!conversationId) {
-      // Create new conversation
+
       const conversation = await prisma.conversation.create({
         data: {
           metadata: {
@@ -49,13 +47,13 @@ export default async function handler(
       })
       conversationId = conversation.id
     } else {
-      // Verify conversation exists
+
       const existing = await prisma.conversation.findUnique({
         where: { id: conversationId },
       })
       
       if (!existing) {
-        // Create new conversation with the provided ID if it doesn't exist
+
         await prisma.conversation.create({
           data: {
             id: conversationId,
@@ -68,7 +66,7 @@ export default async function handler(
       }
     }
 
-    // Save user message
+
     await prisma.message.create({
       data: {
         id: uuidv4(),
@@ -78,7 +76,7 @@ export default async function handler(
       },
     })
 
-    // Get conversation history for context
+
     const history = await prisma.message.findMany({
       where: { conversationId },
       orderBy: { createdAt: 'asc' },
@@ -90,7 +88,7 @@ export default async function handler(
       },
     })
 
-    // Convert to Message type (exclude the current message we just added)
+
     const historyMessages: Message[] = history.slice(0, -1).map((msg) => ({
       id: msg.id,
       sender: msg.sender as 'user' | 'ai',
@@ -98,12 +96,12 @@ export default async function handler(
       createdAt: msg.createdAt,
     }))
 
-    // Generate AI reply
+
     let aiReply: string
     try {
       aiReply = await generateReply(historyMessages, trimmedMessage)
     } catch (llmError) {
-      // If LLM fails, save an error message and return gracefully
+
       const errorMessage = llmError instanceof Error 
         ? llmError.message 
         : 'Sorry, I encountered an error. Please try again.'
@@ -124,7 +122,7 @@ export default async function handler(
       })
     }
 
-    // Save AI response
+
     await prisma.message.create({
       data: {
         id: uuidv4(),
@@ -134,7 +132,7 @@ export default async function handler(
       },
     })
 
-    // Update conversation timestamp
+
     await prisma.conversation.update({
       where: { id: conversationId },
       data: { updatedAt: new Date() },
